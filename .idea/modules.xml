@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dev.ml_teads.iml" filepath="$PROJECT_DIR$/.idea/modules/dev.ml_teads.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ml_teads.iml" filepath="$PROJECT_DIR$/.idea/modules/ml_teads.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ml_teads-build.iml" filepath="$PROJECT_DIR$/.idea/modules/ml_teads-build.iml" />
+    </modules>
+  </component>
+</project>
