@@ -4,7 +4,7 @@ import org.apache.spark.ml.feature.{StringIndexer, VectorAssembler}
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.functions.{hour, minute, to_timestamp}
 
-object Main extends App{
+object GeneratePipeline extends App{
   import org.apache.spark.sql.SparkSession;
   import org.apache.spark.ml.classification.LogisticRegression
   import org.apache.spark.ml.feature.OneHotEncoder
@@ -33,6 +33,8 @@ object Main extends App{
   val Array(train_df, test_df) = full_train_data
     .transform(transform_train_data)
     .randomSplit(Array(.8, .2), seed=42)
+  train_df.write.save("tmp/training_set")
+  test_df.write.save("tmp/test_set")
 
 //  val train_df = spark.read
 //    .format("csv")

@@ -1,6 +1,6 @@
 import org.apache.spark.ml.PipelineModel
 
-object GenerateSubmission extends App{
+object GenerateCsvSubmission extends App{
   import org.apache.spark.sql.DataFrame
   import org.apache.spark.sql.functions.{hour, minute, to_timestamp}
   import org.apache.spark.sql.SparkSession;
