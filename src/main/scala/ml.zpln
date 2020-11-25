@@ -1,0 +1,122 @@
+﻿{
+ "paragraphs": [
+  {
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "status": "READY",
+   "text": "",
+   "id": "",
+   "config": {}
+  },
+  {
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "status": "READY",
+   "text": "",
+   "id": "",
+   "config": {}
+  },
+  {
+   "text": "import org.apache.spark.sql.DataFrame\nimport org.apache.spark.sql.functions.{hour, minute, to_timestamp}\n\ndef transform_train_data(df: DataFrame): DataFrame = {\n    df\n      .withColumn(\"hour\", hour(to_timestamp($\"timeStamp\".cast(\"Int\")))).drop(\"timeStamp\")\n      .withColumn(\"isSoldInt\", ($\"isSold\" === \"true\").cast(\"Int\")).drop(\"isSold\")\n}\n\nval train = spark.read\n    .format(\"csv\")\n    .option(\"header\", \"true\")\n    .csv(\"data/train.csv\")\n    .toDF()\n    .transform(transform_train_data)\n\ntrain.show()\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-11-22T19:55:41+0000",
+   "config": {
+    "editorSetting": {
+     "language": "scala",
+     "editOnDblClick": false,
+     "completionKey": "TAB",
+     "completionSupport": true
+    },
+    "colWidth": 12.0,
+    "editorMode": "ace/mode/scala",
+    "fontSize": 9.0,
+    "editorHide": false,
+    "results": {},
+    "enabled": true
+   },
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "results": {
+    "code": "SUCCESS",
+    "msg": [
+     {
+      "type": "TEXT",
+      "data": "+--------------------+-----------+---------+----------------------+-------+---------------+--------------------+--------------+------+---------------+---------------+-----------------------------+----+---------+\n|           auctionId|placementId|websiteId|hashedRefererDeepThree|country|opeartingSystem|             browser|browserVersion|device|environmentType|integrationType|articleSafenessCategorization|hour|isSoldInt|\n+--------------------+-----------+---------+----------------------+-------+---------------+--------------------+--------------+------+---------------+---------------+-----------------------------+----+---------+\n|001ed16b-dd08-459...|     120706|    68203|  1ae7c2d3c28b711c0...|     US|        Windows|              Chrome|          86_0|    PC|         js-web|              2|                         safe|  16|        0|\n|0024b36a-4fb5-407...|      69454|    42543|  df1108bf6ae49dbcc...|     RO|        Android|        Facebook App|         293_0| Phone|        js-fbwv|              1|                       unsafe|  12|        0|\n|003630fa-ad63-428...|     100170|    57703|  cc6957e8aec85a4d9...|     UK|        Android|        Facebook App|         294_0| Phone|         js-web|              2|                         safe|  11|        1|\n|0048c65a-ce76-43b...|     100446|    57797|  7fc0bb7a65d074e00...|     ES|        Android|       Chrome Mobile|          86_0| Phone|       js-ampsf|              1|                         safe|  15|        1|\n|0056b8a7-54f9-4ac...|     119517|    67613|  3a6552ccbf66ad166...|     FR|        Android|        Facebook App|         293_0| Phone|        js-fbwv|              1|                       unsafe|  20|        0|\n|006a060e-e48b-457...|     112020|    41617|  58e82db9f42914c03...|     UK|          macOS|              Safari|          13_1|    PC|         js-web|              2|                         safe|  17|        0|\n|006b8616-c8c6-47b...|     120706|    68203|  cdd42d315c443c3db...|     UK|        Android|Mobile Samsung Br...|          12_1| Phone|         js-web|              2|                         safe|  10|        0|\n|00a8988e-1261-4e6...|     120706|    68203|  7b856dd2cffe043b5...|     ES|        Android|        Facebook App|         294_0| Phone|         js-web|              2|                         safe|  13|        0|\n|00aaea1e-ebc5-48a...|     120706|    68203|  8448d2635d8ce25f3...|     UK|        Android|        Facebook App|         294_0| Phone|         js-web|              2|                         safe|  12|        0|\n|00d0fdef-dd89-497...|     120706|    68203|  cdd42d315c443c3db...|     UK|        Android|        Facebook App|         294_0| Phone|         js-web|              2|                         safe|   7|        1|\n|00edc74c-c5e1-49f...|     128589|    72403|  18912c04d20812d6b...|     CA|          macOS|              Safari|          13_1|    PC|         js-web|              1|                         safe|   3|        1|\n|00f9b9a3-9828-4bb...|     100170|    57703|  cc6957e8aec85a4d9...|     UK|            iOS|        Facebook App|          null| Phone|         js-web|              2|                         safe|  13|        0|\n|00fd4740-0f00-4d9...|      42373|    29138|  6e1d08d28ae3f450b...|     US|            iOS|       Safari mobile|          14_0| Phone|         js-web|              1|                         safe|  11|        1|\n|010304d5-5d09-418...|      82730|    27828|  a31a5fd6d9575eefb...|     ZA|        Android|       Chrome Mobile|          66_0| Phone|         js-web|              1|                       unsafe|   9|        1|\n|01037d69-98ff-4bc...|     128131|    72196|  12e730817da2ffe82...|     DE|        Android|              Chrome|          86_0|Tablet|         js-web|              2|                         safe|  20|        1|\n|010aa3a7-819c-4cd...|     120706|    68203|  8f94cf5f1e4c75411...|     US|            iOS|        Facebook App|          null| Phone|         js-web|              2|                         safe|  16|        0|\n|01112a79-9c32-41e...|      95715|    55304|  74be40c19a615af81...|     GR|        Windows|              Chrome|          86_0|    PC|         js-web|              1|                         safe|  21|        0|\n|011c2268-4091-4ce...|     120706|    68203|  8448d2635d8ce25f3...|     AU|        Android|        Facebook App|         294_0| Phone|         js-web|              2|                         safe|  10|        0|\n|0124758a-9c2a-4bc...|      95715|    55304|  d057a94cd2ad3152c...|     GR|        Android|       Chrome Mobile|          86_0| Phone|         js-web|              1|                        uncat|  17|        0|\n|01270bdb-bda4-4b9...|     120706|    68203|  513dc346ab569ee76...|     US|        Android|       Chrome Mobile|          86_0| Phone|         js-web|              2|                         safe|  17|        1|\n+--------------------+-----------+---------+----------------------+-------+---------------+--------------------+--------------+------+---------------+---------------+-----------------------------+----+---------+\nonly showing top 20 rows\n\nimport org.apache.spark.sql.DataFrame\nimport org.apache.spark.sql.functions.{hour, minute, to_timestamp}\n\u001b[1m\u001b[34mtransform_train_data\u001b[0m: \u001b[1m\u001b[32m(df: org.apache.spark.sql.DataFrame)org.apache.spark.sql.DataFrame\u001b[0m\n\u001b[1m\u001b[34mtrain\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.Dataset[org.apache.spark.sql.Row]\u001b[0m = [auctionId: string, placementId: string ... 12 more fields]\n"
+     }
+    ]
+   },
+   "apps": [],
+   "runtimeInfos": {
+    "jobUrl": {
+     "propertyName": "jobUrl",
+     "label": "SPARK JOB",
+     "tooltip": "View in Spark web UI",
+     "group": "spark",
+     "values": [
+      {
+       "jobUrl": "http://b9dd18ec5170:4040/jobs/job?id=0"
+      },
+      {
+       "jobUrl": "http://b9dd18ec5170:4040/jobs/job?id=1"
+      }
+     ],
+     "interpreterSettingId": "spark"
+    }
+   },
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1606074941566_-1494223471",
+   "id": "paragraph_1606074941566_-1494223471",
+   "dateCreated": "2020-11-22T19:55:41+0000",
+   "dateStarted": "2020-11-22T19:55:41+0000",
+   "dateFinished": "2020-11-22T19:55:50+0000",
+   "status": "FINISHED"
+  },
+  {
+   "text": "import org.apache.spark.ml.Pipeline\nimport org.apache.spark.ml.classification.LogisticRegression\nimport org.apache.spark.ml.evaluation.BinaryClassificationEvaluator\nimport org.apache.spark.ml.feature.{OneHotEncoder, StringIndexer, VectorAssembler}\nimport org.apache.spark.ml.tuning.{CrossValidator, ParamGridBuilder}\n\nval categoricalCols = train.dtypes.filter{case (field, dataType) => dataType == \"StringType\" && field != \"auctionId\"}.map(_._1)\nval indexOutputCols = categoricalCols.map(_ + \"Index\")\nval oheOutputCols = categoricalCols.map(_ + \"OHE\")\n\nval stringIndexer = new StringIndexer()\n    //.setInputCols(categoricalCols)\n    //.setOutputCols(indexOutputCols)\n    .setHandleInvalid(\"keep\")\ncategoricalCols.foreach(stringIndexer.inp)\n\nval oheEncoder = new OneHotEncoder()\n    .setInputCols(indexOutputCols)\n    .setOutputCols(oheOutputCols)\n\nval vecAssembler = new VectorAssembler()\n    .setInputCols(oheOutputCols)\n    .setOutputCol(\"features\")\n\nval logisticRegression = new LogisticRegression()\n    .setLabelCol(\"isSoldInt\")\n    .setFeaturesCol(\"features\")\n    .setMaxIter(50)\n    .setRegParam(0.03)\n\nval pipeline = new Pipeline()\n.   setStages(Array(stringIndexer, oheEncoder, vecAssembler, logisticRegression))\n\nval paramGrid = new ParamGridBuilder()\n    .addGrid(logisticRegression.threshold, Array(0.42))\n    .build()\n\nval evaluator = new BinaryClassificationEvaluator()\n    .setRawPredictionCol(logisticRegression.getRawPredictionCol)\n    .setLabelCol(\"isSoldInt\")\n\nval cv = new CrossValidator()\n    .setEstimator(pipeline)\n    .setEvaluator(evaluator)\n    .setEstimatorParamMaps(paramGrid)\n    .setNumFolds(2)\n    .setParallelism(2)\n\nval cvModel = cv.fit(train)\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-11-22T19:59:15+0000",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "results": {
+    "code": "ERROR",
+    "msg": [
+     {
+      "type": "TEXT",
+      "data": "<console>:38: \u001b[31merror: \u001b[0mvalue setInputCols is not a member of org.apache.spark.ml.feature.StringIndexer\npossible cause: maybe a semicolon is missing before `value setInputCols'?\n           .setInputCols(categoricalCols)\n            ^\n<console>:43: \u001b[31merror: \u001b[0mvalue setInputCols is not a member of org.apache.spark.ml.feature.OneHotEncoder\npossible cause: maybe a semicolon is missing before `value setInputCols'?\n           .setInputCols(indexOutputCols)\n            ^\n"
+     }
+    ]
+   },
+   "apps": [],
+   "runtimeInfos": {},
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1606075155278_-1377235197",
+   "id": "paragraph_1606075155278_-1377235197",
+   "dateCreated": "2020-11-22T19:59:15+0000",
+   "dateStarted": "2020-11-22T19:59:15+0000",
+   "dateFinished": "2020-11-22T19:59:15+0000",
+   "status": "ERROR"
+  }
+ ],
+ "name": "Zeppelin Notebook",
+ "id": "",
+ "noteParams": {},
+ "noteForms": {},
+ "angularObjects": {},
+ "config": {
+  "isZeppelinNotebookCronEnable": false,
+  "looknfeel": "default",
+  "personalizedMode": "false"
+ },
+ "info": {}
+}
